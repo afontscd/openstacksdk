@@ -927,6 +927,18 @@ class Proxy(proxy.Proxy):
         server = self._get_resource(_server.Server, server)
         return server.get_console_output(self, length=length)
 
+    def get_server_url_console(self, server, type='novnc'):
+        """Return the console url for a server.
+
+        :param server: Either the ID of a server or a
+                    :class:`~openstack.compute.v2.server.Server` instance.
+        :param type: Optional type of console url to show.
+        :returns: The console output as a dict. Control characters will be
+                    escaped to create a valid JSON string.
+        """
+        server = self._get_resource(_server.Server, server)
+        return server.get_console_url(self, type=type)
+
     def wait_for_server(self, server, status='ACTIVE', failures=None,
                         interval=2, wait=120):
         """Wait for a server to be in a particular status.

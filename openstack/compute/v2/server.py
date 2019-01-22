@@ -362,6 +362,12 @@ class Server(resource.Resource, metadata.MetadataMixin, resource.TagMixin):
         resp = self._action(session, body)
         return resp.json()
 
+    def get_console_url(self, session, type='novnc'):
+        body = {"os-getVNCConsole": {}}
+        body["os-getVNCConsole"]["type"] = type
+        resp = self._action(session, body)
+        return resp.json()
+
     def live_migrate(self, session, host, force, block_migration,
                      disk_over_commit=False):
         if utils.supports_microversion(session, '2.30'):
